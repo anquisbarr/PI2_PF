@@ -5,5 +5,6 @@ from . import views
 
 urlpatterns = [
     path('', views.index,name='index'),
+    path('io', views.stamp,name='stamp'),
     #    route, view, name, 
 ]
