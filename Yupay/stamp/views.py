@@ -3,7 +3,6 @@ from django.http import HttpResponse
 import json.encoder
 from django.http import HttpRequest
 from Yupay import environment as env
-import requests 
 # Create your views here. 
 # All the views must be called in the urls
 def index(request): #after request you may include other parameters
@@ -13,10 +12,13 @@ def index(request): #after request you may include other parameters
     return HttpResponse(response)
 
 def stamp(request):
-    Token = env.ACCESS_TOKEN
-    URL = env.API_URL
-    data = {"evidence":"Hash-256 (Input)","transactionType":"Stamping.io:API"}
-    dataTest = "hola"
-    request = requests.get(URL + dataTest, auth=('Authorization', 'basic '+ Token))
-    #HttpRequest.POST(json.JSONEncoder(data))
-    return HttpResponse(data)   
+    if request == "POST":
+        try:
+            Token = env.ACCESS_TOKEN
+            URL = env.API_URL
+            dataTest = "hola"
+            #request = requests.post(URL,headers,)
+            #HttpRequest.POST(json.JSONEncoder(data))
+            return HttpResponse(dataTest)   
+        except Exception as ex:
+            return HttpResponse(ex)
