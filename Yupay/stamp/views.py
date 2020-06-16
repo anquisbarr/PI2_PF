@@ -17,12 +17,13 @@ def post(request):
         Token1 = env.ACCESS_TOKEN1
         Token2 = env.ACCESS_TOKEN2
         URL = env.POST_URL
-        params = {'evidence': 'Hola prueba desde back',
+        params = {'evidence': 'Hola prueba2 desde back',
                   'transactionType':'Stamping.io:API'}
         headers = {
                 'Authorization': 'Basic {Token1}',
                 'Content-Type': 'application/json',
-                'Authorization': 'Basic {Token2}'}
+                'Authorization': 'Basic {Token2}'
+                }
         response = requests.post(URL,params = params, headers = headers)
         return HttpResponse(response)   
     except Exception as ex:
