@@ -4,6 +4,7 @@ import json.encoder
 from django.http import HttpRequest
 from Yupay import environment as env
 import requests
+from hashlib import sha256
 # Create your views here. 
 # All the views must be called in the urls
 def index(request): #after request you may include other parameters
@@ -16,7 +17,9 @@ def post(request):
     try:
         Token = env.ACCESS_TOKEN
         URL = env.POST_URL
-        params = {'evidence': 'Hola pruebaFinal3 desde back',
+        data = b"Hola prueba hashing"
+        h = sha256(data)
+        params = {'evidence': h.hexdigest(),
                   'transactionType':'Stamping.io:API'}
         headers = {
                 'Authorization': f'Basic {Token}',
@@ -29,13 +32,10 @@ def post(request):
     
 def get(request):
     try:
-        Token = env.ACCESS_TOKEN
         URL = env.GET_URL
-        dataTest = "evidence=Hola prueba"
-        
-        # auth=('Authorization','Basic'+Token)
-        headers = {'Authorization': 'basic '+Token}
-        response = requests.request("POST",URL+dataTest,headers = headers)
+        params = {'byTrxid': '95f1165e976b1dfe14486a167a6b28b7e3444aa3'}
+        # params = {'byHash': 'insert hash here'}
+        response = requests.post(URL,params = params)
         return HttpResponse(response)   
     except Exception as ex:
         return HttpResponse(ex)
