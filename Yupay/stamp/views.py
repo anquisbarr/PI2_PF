@@ -5,6 +5,7 @@ from django.http import HttpRequest
 from Yupay import environment as env
 import requests
 from hashlib import sha256
+import base64
 # Create your views here. 
 # All the views must be called in the urls
 def index(request): #after request you may include other parameters
@@ -24,9 +25,13 @@ def post(request):
         }
         summary = json.dumps(dict(inputPrueba, **data))
         h = sha256(summary.encode('utf-8'))
-        params = {'evidence': h.hexdigest(),
+        params = {"evidence": h.hexdigest(),
                   'transactionType':'Stamping.io:API',
-                    'data': json.dumps(data)}
+                    'data': base64.b64encode(json.dumps(data).encode('utf-8')),
+                    'subject':'Asunto'}
+        # params lat long(num or string)
+        # url 
+        #reference = trxid 
         headers = {
                 'Authorization': f'Basic {Token}',
                 'Content-Type': 'application/json'}
