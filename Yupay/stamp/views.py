@@ -15,17 +15,24 @@ def index(request): #after request you may include other parameters
 
 def post(request):
     try:
+        inputPrueba = {'Id': '124124124'}
         Token = env.ACCESS_TOKEN
         URL = env.POST_URL
-        data = b"Hola prueba hashing"
-        h = sha256(data)
+        data = {'Id': '124124124',
+                'compra' : 'producto1',
+                'valor': 300
+        }
+        summary = json.dumps(dict(inputPrueba, **data))
+        h = sha256(summary.encode('utf-8'))
         params = {'evidence': h.hexdigest(),
-                  'transactionType':'Stamping.io:API'}
+                  'transactionType':'Stamping.io:API',
+                    'data': json.dumps(data)}
         headers = {
                 'Authorization': f'Basic {Token}',
                 'Content-Type': 'application/json'}
         
         response = requests.post(URL,params = params, headers = headers)
+
         return HttpResponse(response)   
     except Exception as ex:
         return HttpResponse(ex)
