@@ -3,6 +3,9 @@ from django.http import HttpResponse
 import json.encoder
 from django.http import HttpRequest
 from Yupay import environment as env
+from django.template import loader
+from django.template.loader import render_to_string
+from django.shortcuts import render
 import requests
 from hashlib import sha256
 import base64
@@ -10,9 +13,19 @@ import base64
 # All the views must be called in the urls
 def index(request): #after request you may include other parameters
     # template = loader.get_template('root/file.html')
-    response = "Hello, world. You're at the polls index."
-    #return HttpResponse(template.render(response,request))
-    return HttpResponse(response)
+    try:
+        #return HttpResponse(template.render(response,request))
+        return render(request,'index.html')
+    except Exception as ex:
+        return HttpResponse(ex)
+    
+def index(request): #after request you may include other parameters
+    # template = loader.get_template('root/file.html')
+    try:
+        #return HttpResponse(template.render(response,request))
+        return render(request,'index.html')
+    except Exception as ex:
+        return HttpResponse(ex)
 
 def post(request):
     try:
