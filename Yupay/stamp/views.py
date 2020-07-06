@@ -19,11 +19,11 @@ def index(request): #after request you may include other parameters
     except Exception as ex:
         return HttpResponse(ex)
     
-def index(request): #after request you may include other parameters
-    # template = loader.get_template('root/file.html')
+def forms(request): 
     try:
-        #return HttpResponse(template.render(response,request))
-        return render(request,'index.html')
+        return render(request,'forms.html')
+        if request == "GET /forms/ HTTP/1.1":
+            return render(request,'index.html')
     except Exception as ex:
         return HttpResponse(ex)
     

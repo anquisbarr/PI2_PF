@@ -6,6 +6,7 @@ from django.conf import settings
 from . import views
 urlpatterns = [
     path('', views.index,name='index'),
+    path('forms/', views.forms,name='forms'),
     path('stamp/', views.post,name='stamp'),
     #    route, view, name, 
 ] 

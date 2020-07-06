@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-{% load static %}
+{% load static %} 
   <meta charset="utf-8">
   <title>Bienvenidos a Yupay</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -37,6 +37,7 @@
 
   <!-- Main Stylesheet File -->
   <link href="{% static "css/style.css" %}" rel="stylesheet">
+  <script src="{%static "js/index.js"%}"></script>
 
   <!-- =======================================================
     Theme Name: Imperial
@@ -85,7 +86,7 @@
         <ul class="nav-menu">
           <li class="menu-active"><a href="#hero">Inicio</a></li>
           <li><a href="#about">Conócenos</a></li>
-          <li><a href="#inicio">Inscripción</a></li>
+          <li><a class ="button" onclick="goToForms()">Inscripción</a></li>
           <li><a href="#services">Servicios</a></li>
           <li><a href="#team">Equipo de trabajo</a></li>
           <li><a href="#contact">Contáctanos</a></li>
