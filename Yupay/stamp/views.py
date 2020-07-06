@@ -22,8 +22,6 @@ def index(request): #after request you may include other parameters
 def forms(request): 
     try:
         return render(request,'forms.html')
-        if request == "GET /forms/ HTTP/1.1":
-            return render(request,'index.html')
     except Exception as ex:
         return HttpResponse(ex)
     
