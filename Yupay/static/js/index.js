@@ -11,8 +11,7 @@ function goToForms(){
             var url = 'http://'+ document.domain+ ':'+ location.port + '/forms/';
             $(location).attr('href',url);
             }
-
-            //$('#action').html(response['statusText']);
+                        //$('#action').html(response['statusText']);
         }
     });
 }

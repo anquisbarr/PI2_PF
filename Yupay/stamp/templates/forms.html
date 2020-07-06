@@ -36,14 +36,14 @@
 
 	<div class="container-contact100">
 		<div class="wrap-contact100">
-			<form class="contact100-form validate-form">
+			<form class="contact100-form validate-form" method = "post">{% csrf_token %}
 				<span class="contact100-form-title">
 					YUPAY
 				</span>
 
 				<div class="wrap-input100 validate-input bg1" data-validate="INGRESE UNA RUC VALIDA PORFAVOR">
 					<span class="label-input100">Ruc de la empresa *</span>
-					<input class="input100" type="number" name="name" placeholder="RUC">
+					<input class="input100" type="number" name="RUC" placeholder="RUC">
 				</div>
 
 				<div class="wrap-input100 validate-input bg1 rs1-wrap-input100" data-validate = "INGRESE UN NOMBRE VALIDO">
@@ -53,7 +53,7 @@
 
 				<div class="wrap-input100 bg1 rs1-wrap-input100">
 					<span class="label-input100">DNI*</span>
-					<input class="input100" type="number" name="phone" placeholder="INGRESA EL NUMERO DE DNI">
+					<input class="input100" type="number" name="userid" placeholder="INGRESA EL NUMERO DE DNI">
 				</div>
 
 				<div class="wrap-input100 input100-select bg1">
@@ -78,7 +78,7 @@
 						<span class="label-input100">Dinero en Soles *</span>
 
 						<div class="values">
-							<input type="number" class="values" name="numero" S/>
+							<input type="number" class="values" name="monto" S/>
 						</div>
 					</div>
 				</div>
@@ -86,7 +86,7 @@
 			
 
 				<div class="container-contact100-form-btn">
-					<button class="contact100-form-btn">
+					<button class="contact100-form-btn" onclick="getData()">
 						<span>
 							Estampar
 							<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
@@ -138,6 +138,7 @@
 	
 <!--===============================================================================================-->
 	<script src="{% static "js/main.js" %}"></script>
+	<script src="{% static "js/forms.js" %}"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
