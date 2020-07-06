@@ -8,4 +8,4 @@ urlpatterns = [
     path('', views.index,name='index'),
     path('stamp/', views.post,name='stamp'),
     #    route, view, name, 
-]
+] 

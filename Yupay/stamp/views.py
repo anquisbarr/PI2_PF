@@ -26,6 +26,7 @@ def index(request): #after request you may include other parameters
         return render(request,'index.html')
     except Exception as ex:
         return HttpResponse(ex)
+    
 
 def post(request):
     try:
