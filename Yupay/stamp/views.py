@@ -32,12 +32,13 @@ class stamping(View):
     def post(self,request,*args, **kwargs):  
         if request.method == "POST":      
             try: 
-                inputPrueba = {'Id': '124124124'}
                 Token = env.ACCESS_TOKEN
                 URL = env.POST_URL
                 data = json.loads(request.body)
-                summary = json.dumps(dict(inputPrueba, **data))
-                h = sha256(summary.encode('utf-8'))
+                #inputPrueba = {'Id': '124124124'}
+                #summary = json.dumps(dict(inputPrueba, **data))
+                #h = sha256(summary.encode('utf-8'))
+                h = sha256(json.dumps(data).encode('utf-8'))
                 params = {"evidence": h.hexdigest(),
                         'transactionType':'Stamping.io:API',
                             'data': base64.b64encode(json.dumps(data).encode('utf-8')),
