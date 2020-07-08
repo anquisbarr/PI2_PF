@@ -33,7 +33,7 @@ function getData(){
     var user_id = $('#userid').val();
     var service = $('#service').val();
     var amount = $('#monto').val();
-    var message = JSON.stringify({
+    var data = JSON.stringify({
             "RUC": RUC,
             "Company_name": company_name,
             "user_id": user_id,
@@ -43,11 +43,11 @@ function getData(){
     $.ajax({
         url:'stamp/',
         type:'POST',
-        contentType: 'application/json;charset=utf-8',
-        data : message,
+        contentType: 'application/json',
+        data : data,
         dataType:'json',
         success: function(result) {
-            alert(result.Result);
+            alert(json.stringify(response));
         }
     });
 }

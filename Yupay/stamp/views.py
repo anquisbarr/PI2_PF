@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-import json.encoder
+import json
 from django.http import HttpRequest
 from Yupay import environment as env
 from django.template import loader
 from django.template.loader import render_to_string
 from django.shortcuts import render
 import requests
+from django.http import JsonResponse
 from django.views import View
 from hashlib import sha256
 from django.views.decorators.csrf import csrf_exempt
@@ -28,7 +29,7 @@ def forms(request):
         return HttpResponse(ex)
     
 class stamping(View):
-    def post(self,request,*args, **kwargs):
+    '''def post(self,request,*args, **kwargs):        
         try: 
             inputPrueba = {'Id': '124124124'}
             Token = env.ACCESS_TOKEN
@@ -53,7 +54,29 @@ class stamping(View):
             response = requests.post(URL,params = params, headers = headers)
             return HttpResponse(response)   
         except Exception as ex:
-            return HttpResponse(ex)
+            print(ex)
+            return HttpResponse(ex)'''
+            
+    def post(self,request):
+        if request.method == "POST":
+            try: 
+                data = request.body
+                Token = env.ACCESS_TOKEN
+                URL = env.POST_URL
+                summary = data
+                h = sha256(summary.encode('utf-8'))
+                params = {"evidence": h.hexdigest(),
+                            'transactionType':'Stamping.io:API',
+                            'data': base64.b64encode(json.dumps(data).encode('utf-8')),
+                            'subject':'Asignacion'}
+                headers = {
+                    'Authorization': f'Basic {Token}',
+                    'Content-Type': 'application/json'}
+                response = requests.post(URL,params = params, headers = headers)
+                print(response)
+                return HttpResponse(response) 
+            except Exception as ex:
+                return HttpResponse(ex)
         
     def get(self, request,*args, **kwargs):
         try:
