@@ -60,7 +60,7 @@ class stamping(View):
     def post(self,request):
         if request.method == "POST":
             try: 
-                data = request.body
+                data = json.loads(request.body)
                 Token = env.ACCESS_TOKEN
                 URL = env.POST_URL
                 summary = data
@@ -72,9 +72,9 @@ class stamping(View):
                 headers = {
                     'Authorization': f'Basic {Token}',
                     'Content-Type': 'application/json'}
+                
                 response = requests.post(URL,params = params, headers = headers)
-                print(response)
-                return HttpResponse(response) 
+                return HttpResponse(data) 
             except Exception as ex:
                 return HttpResponse(ex)
         
