@@ -29,54 +29,32 @@ def forms(request):
         return HttpResponse(ex)
     
 class stamping(View):
-    '''def post(self,request,*args, **kwargs):        
-        try: 
-            inputPrueba = {'Id': '124124124'}
-            Token = env.ACCESS_TOKEN
-            URL = env.POST_URL
-            data = {'Id': '124124',
-                    'compra' : 'producto1',
-                    'valor': 300
-            }
-            summary = json.dumps(dict(inputPrueba, **data))
-            h = sha256(summary.encode('utf-8'))
-            params = {"evidence": h.hexdigest(),
-                    'transactionType':'Stamping.io:API',
-                        'data': base64.b64encode(json.dumps(data).encode('utf-8')),
-                        'subject':'Asunto'}
-            # params lat long(num or string)
-            # url 
-            #reference = trxid 
-            headers = {
-                    'Authorization': f'Basic {Token}',
-                    'Content-Type': 'application/json'}
-            
-            response = requests.post(URL,params = params, headers = headers)
-            return HttpResponse(response)   
-        except Exception as ex:
-            print(ex)
-            return HttpResponse(ex)'''
-            
-    def post(self,request):
-        if request.method == "POST":
+    def post(self,request,*args, **kwargs):  
+        if request.method == "POST":      
             try: 
-                data = json.loads(request.body)
+                inputPrueba = {'Id': '124124124'}
                 Token = env.ACCESS_TOKEN
                 URL = env.POST_URL
-                summary = data
+                data = json.loads(request.body)
+                summary = json.dumps(dict(inputPrueba, **data))
                 h = sha256(summary.encode('utf-8'))
                 params = {"evidence": h.hexdigest(),
-                            'transactionType':'Stamping.io:API',
+                        'transactionType':'Stamping.io:API',
                             'data': base64.b64encode(json.dumps(data).encode('utf-8')),
-                            'subject':'Asignacion'}
+                            'subject':'Asunto'}
+                # params lat long(num or string)
+                # url 
+                #reference = trxid 
                 headers = {
-                    'Authorization': f'Basic {Token}',
-                    'Content-Type': 'application/json'}
+                        'Authorization': f'Basic {Token}',
+                        'Content-Type': 'application/json'}
                 
                 response = requests.post(URL,params = params, headers = headers)
-                return HttpResponse(data) 
+                return HttpResponse(response)   
             except Exception as ex:
+                print(ex)
                 return HttpResponse(ex)
+            
         
     def get(self, request,*args, **kwargs):
         try:
