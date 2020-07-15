@@ -1,3 +1,9 @@
 .vscode
 env
 .env
+Yupay/Yupay/__pycache__/settings.cpython-38.pyc
+Yupay/Yupay/__pycache__/__init__.cpython-38.pyc
+Yupay/stamp/__pycache__/models.cpython-38.pyc
+Yupay/stamp/__pycache__/apps.cpython-38.pyc
+Yupay/stamp/__pycache__/admin.cpython-38.pyc
+Yupay/stamp/__pycache__/__init__.cpython-38.pyc

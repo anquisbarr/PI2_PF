@@ -136,4 +136,3 @@ class stamping(View):
             except Exception as ex:
                 print(ex)
                 return HttpResponse("error: "+str(ex))
-            
