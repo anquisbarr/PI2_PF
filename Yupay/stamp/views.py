@@ -42,7 +42,7 @@ def search(request,id):
         DNI = id
         response = None
         try:
-            instance = Person.objects.get(DNI=str(DNI))
+            instance = Person.objects.get(DNI = DNI)
             reference = instance.base_trxid
             params = {'byTrxid': str(DNI)}
             response = requests.get(URL,params = params)
@@ -64,9 +64,9 @@ def search2(request):
         DNI = id
         response = None
         try:
-            instance = Person.objects.get(DNI=str(DNI))
+            instance = Person.objects.get(DNI = DNI)
             reference = instance.base_trxid
-            params = {'byTrxid': str(DNI)}
+            params = {'byTrxid': DNI}
             response = requests.get(URL,params = params)
         except Exception:
             response = {'respuesta':"EL DNI NO SE HA REGISTRADO"}
