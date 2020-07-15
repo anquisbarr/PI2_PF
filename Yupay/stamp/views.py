@@ -34,12 +34,12 @@ def searchForm(request):
     except Exception as ex:
         return HttpResponse(ex)
     
-def search(request):
+def search(request,id):
     try:
         URL = env.GET_URL
-        data = json.loads(request.body)
-        DNI = data['user_id']
-        #DNI = id
+        #data = json.loads(request.body)
+        #DNI = data['user_id']
+        DNI = id
         response = None
         try:
             instance = Person.objects.get(DNI=str(DNI))
@@ -55,6 +55,29 @@ def search(request):
     except Exception as ex:
         print(ex)
         return HttpResponse(ex)
+    
+def search2(request):
+    try:
+        URL = env.GET_URL
+        #data = json.loads(request.body)
+        #DNI = data['user_id']
+        DNI = id
+        response = None
+        try:
+            instance = Person.objects.get(DNI=str(DNI))
+            reference = instance.base_trxid
+            params = {'byTrxid': str(DNI)}
+            response = requests.get(URL,params = params)
+        except Exception:
+            response = {'respuesta':"EL DNI NO SE HA REGISTRADO"}
+            response = json.dumps(response)
+        # params = {'byHash': 'insert hash here'}
+        print(json.loads(response))
+        return HttpResponse(response.body)
+    except Exception as ex:
+        print(ex)
+        return HttpResponse(ex)
+
 
         
 class stamping(View):
