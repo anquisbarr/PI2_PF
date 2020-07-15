@@ -7,7 +7,7 @@ function getData(){
         });
     data = user_id
     $.ajax({
-        url:'search/?callback=?',
+        url:'search/',
         type:'GET',
         contentType: 'application/json',
         data : data,
@@ -15,7 +15,6 @@ function getData(){
         success: function(result) {
             console.log(response);
             alert(json.stringify(response));
-
         },
         error: function(){
             console.log(response);

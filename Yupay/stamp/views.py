@@ -35,68 +35,43 @@ def searchForm(request):
     except Exception as ex:
         return HttpResponse(ex)
     
-def search(request,id):
+def search(request):
     try:
         URL = env.GET_URL
-        #data = json.loads(request.body)
-        #DNI = data['user_id']
-        DNI = id
+        req = request.GET
+        DNI = None
+        for key in req:
+            DNI = key
+        print(DNI,type(DNI),len(DNI))
         response = None
-        try:
-            instance = Person.objects.get(DNI = DNI)
-            reference = instance.base_trxid
-            params = {'byTrxid': str(DNI)}
-            response = requests.get(URL,params = params)
-        except Exception:
-            response = {'respuesta':"EL DNI NO SE HA REGISTRADO"}
-            response = json.dumps(response)
-        # params = {'byHash': 'insert hash here'}
-        print(json.loads(response))
-        return HttpResponse(response.body)
+        instance = Person.objects.get(DNI = int(DNI))
+        reference = instance.base_trxid
+        params = {'byTrxid': reference}
+        response = requests.get(URL,params = params)
+        print(response.content)
+        return HttpResponse(response.content)
     except Exception as ex:
-        print(ex)
-        return HttpResponse(ex)
-    
-def search2(request):
-    try:
-        URL = env.GET_URL
-        #data = json.loads(request.body)
-        #DNI = data['user_id']
-        DNI = id
-        response = None
-        try:
-            instance = Person.objects.get(DNI = DNI)
-            reference = instance.base_trxid
-            params = {'byTrxid': DNI}
-            response = requests.get(URL,params = params)
-        except Exception:
-            response = {'respuesta':"EL DNI NO SE HA REGISTRADO"}
-            response = json.dumps(response)
-        # params = {'byHash': 'insert hash here'}
-        print(json.loads(response))
-        return HttpResponse(response.body)
-    except Exception as ex:
-        print(ex)
         return HttpResponse(ex)
 
-    def certificados(request):
-        try:
-            Token = env.CERT_TOKEN
-            URL = env.CERT_URL
-            response = None
-            headers = {
-                'Authorization': f'Basec {Token}',
-                'Content-Type': 'application/json'
-            }
-            email = f'anquisbarr@gmail.com'
-            phone = f'99999999'
-            name = f'Sebastian Test'
-            
-            response = requests.post(URL,params=(email,phone,name),headers=headers)
-            return HttpResponse(response)
-        except Exception as ex:
-            print (ex)
-            return HttpResponse("error: "+str(ex))
+
+def certificados(request):
+    try:
+        Token = env.CERT_TOKEN
+        URL = env.CERT_URL
+        response = None
+        headers = {
+            'Authorization': f'Basec {Token}',
+            'Content-Type': 'application/json'
+        }
+        email = f'anquisbarr@gmail.com'
+        phone = f'99999999'
+        name = f'Sebastian Test'
+        
+        response = requests.post(URL,params=(email,phone,name),headers=headers)
+        return HttpResponse(response)
+    except Exception as ex:
+        print (ex)
+        return HttpResponse("error: "+str(ex))
 
         
 class stamping(View):
