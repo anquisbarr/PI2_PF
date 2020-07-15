@@ -5,6 +5,7 @@ from django.http import HttpRequest
 from Yupay import environment as env
 from django.template import loader
 import requests
+import logging
 from django.http import JsonResponse
 from django.views import View
 from hashlib import sha256
@@ -78,6 +79,24 @@ def search2(request):
         print(ex)
         return HttpResponse(ex)
 
+    def certificados(request):
+        try:
+            Token = env.CERT_TOKEN
+            URL = env.CERT_URL
+            response = None
+            headers = {
+                'Authorization': f'Basec {Token}',
+                'Content-Type': 'application/json'
+            }
+            email = f'anquisbarr@gmail.com'
+            phone = f'99999999'
+            name = f'Sebastian Test'
+            
+            response = requests.post(URL,params=(email,phone,name),headers=headers)
+            return HttpResponse(response)
+        except Exception as ex:
+            print (ex)
+            return HttpResponse("error: "+str(ex))
 
         
 class stamping(View):

@@ -10,7 +10,8 @@ urlpatterns = [
     path('forms/', forms,name='forms'),
     path('searchform/', searchForm,name='searchForm'),
     path('searchform/?userid=<int:id>', search,name='search'),
-     path('searchform/search/?<int:id>',search2,name='search'),
+    path('searchform/search/?<int:id>',search2,name='search'),
+    # path('certificado/', certificados,name='certifado'),
     path('forms/stamp/', stamping.as_view(),name='stamp'),
     #    route, view, name, 
 ] 

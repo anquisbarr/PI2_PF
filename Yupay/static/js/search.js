@@ -1,3 +1,4 @@
+
 function getData(){
     //$('#action').html("Authenticating...");
     var user_id = $('#userid').val();
@@ -12,9 +13,12 @@ function getData(){
         data : data,
         dataType:'json',
         success: function(result) {
+            console.log(response);
             alert(json.stringify(response));
+
         },
         error: function(){
+            console.log(response);
             alert(json.stringify(response));
         }
     });
