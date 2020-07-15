@@ -27,6 +27,34 @@ def forms(request):
         return render(request,'forms.html')
     except Exception as ex:
         return HttpResponse(ex)
+    
+def searchForm(request): 
+    try:
+        return render(request,'search.html')
+    except Exception as ex:
+        return HttpResponse(ex)
+    
+def search(request):
+    try:
+        URL = env.GET_URL
+        data = json.loads(request.body)
+        DNI = data['user_id']
+        #DNI = id
+        response = None
+        try:
+            instance = Person.objects.get(DNI=str(DNI))
+            reference = instance.base_trxid
+            params = {'byTrxid': str(DNI)}
+            response = requests.get(URL,params = params)
+        except Exception:
+            response = {'respuesta':"EL DNI NO SE HA REGISTRADO"}
+            response = json.dumps(response)
+        # params = {'byHash': 'insert hash here'}
+        print(json.loads(response))
+        return HttpResponse(response.body)
+    except Exception as ex:
+        print(ex)
+        return HttpResponse(ex)
 
         
 class stamping(View):
@@ -67,13 +95,3 @@ class stamping(View):
                 print(ex)
                 return HttpResponse("error: "+str(ex))
             
-        
-    def get(self, request,*args, **kwargs):
-        try:
-            URL = env.GET_URL
-            params = {'byTrxid': '722103692035932df24e5fe43a4fe81c01534e9d'}
-            # params = {'byHash': 'insert hash here'}
-            response = requests.post(URL,params = params)
-            return HttpResponse(response.content)   
-        except Exception as ex:
-            return HttpResponse(ex)
